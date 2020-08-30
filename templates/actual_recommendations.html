@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.js"></script>
+        <style>
+            table.dataframe, .dataframe th, .dataframe td {
+                border-bottom: 1px solid #C8C8C8;
+                border-collapse: collapse;
+                text-align:left;
+                padding: 10px;
+                margin-bottom: 40px;
+                font-size: 0.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ui container" style="padding-top: 10px;">
+            {% set test_all = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10] %}
+            {% set test_upper = remove_empty_strings(test_all) %}
+            {% set test = lower_qualities_names(test_upper) %}
+            {% set q_num = length(test) | int %}
+            {% set query = form_query(table, test, q_num, age) %}
+            {% set result = form_result(query, q_num) %}
+            {% for key,value in result.iterrows() %}
+                <a href="{{ value.Link }}">{{ value.Unions }}</a><br>
+            {% endfor %}
+            <br>
+            {{ result.to_html()|safe }}
+        </div>
+    </body>
+</html>
